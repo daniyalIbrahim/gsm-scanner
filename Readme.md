@@ -1,4 +1,4 @@
-# Setup IMSI Catcher in Docker Container
+# Setup GSM Scanner in Docker Container
 
 # Requirements:
 
