@@ -2,8 +2,8 @@ name: Build and Push Docker Image
 
 
 on:
-  push:
-    branches: [ master ]
+  #push:
+  #  branches: [ master ]
   workflow_dispatch:
 
 permissions:
@@ -40,7 +40,7 @@ jobs:
 
   build-and-push-github-package:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
