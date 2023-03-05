@@ -37,7 +37,7 @@ RUN cd ./gr-gsm \
 
 COPY ./catcher catcher/
 
-COPY ./env  /catcher/.env
+#COPY ./env  /catcher/.env
 
 # Set up the SDR device
 #RUN usermod -aG plugdev root && \
