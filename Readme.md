@@ -1,4 +1,4 @@
-# Setup Stingray
+# Setup IMSI Catcher in Docker Container
 
 # Requirements:
 
