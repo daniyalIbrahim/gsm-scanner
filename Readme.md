@@ -80,3 +80,9 @@ Install the x11 server to run GUI apps from wsl or docker containers
     # for opening multi window terminal 
     sudo apt-get install tmuxp
 
+# Sources:
+    - https://osmocom.org/projects/cellular-infrastructure
+    - https://osmocom.org/projects/osmotrx/wiki/Fairwaves_UmTRX_UmSITE
+    - https://umtrx.org/applications/driver/
+    - https://osmocom.org/projects/osmotrx/wiki/LimeNET-micro
+    - https://wiki.myriadrf.org/LimeNET_Micro
