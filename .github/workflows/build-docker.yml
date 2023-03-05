@@ -1,0 +1,86 @@
+name: Build and Push Docker Image
+
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: 'read'
+
+env:
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  APP_NAME: "gsm-scanner"
+  TAG: "v1.0"
+
+jobs:
+  build-and-push-dockerhub:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ env.DOCKER_HUB_USERNAME }}
+          password: ${{ env.DOCKER_HUB_PASSWORD }}
+
+      - name: Push Docker image to DockerHub
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ env.DOCKER_HUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.TAG }}
+
+  build-and-push-github-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Log in to GitHub Packages
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_GH }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/daniyalibrahim/marketplace/${{ env.APP_NAME }}:${{ github.sha }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GH }}
+        with:
+          tag_name: v1.0
+          release_name: Release v1.0
+          body: |
+            This is the release notes for version 1.0
+            GSM Scanner to analyse cellular network traffic
+            Using:
+              Debian BullseyeOS
+              GnuRadio 3.8.2.0
+              gr-gsm 3.10
+              rtl-sdr
+              wireshark
+          draft: false
+          prerelease: false
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.APP_NAME }} 
+        path: ${{ env.APP_NAME }} 

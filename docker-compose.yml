@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  gr-gsm:
+    hostname: gr-gsm
+    container_name: gr-gsm
+    restart: unless-stopped
+    privileged: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    # keep container alive
+    #command: ["/bin/sh","-c", "tail -f /dev/null"]
+    environment:
+      DISPLAY: ":0"
+    devices:
+      - /dev/bus/usb/001/002:/dev/bus/usb/001/002
+    volumes: 
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./.env:/catcher/.env:rw
+    networks:
+      - gsm_net
+
+  gsm-database:
+    image: mysql:latest
+    hostname: gsm-database
+    container_name: gsm-database
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: 'gsmdb'   
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'      
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - './.dbdata/:/var/lib/mysql'
+    networks:
+      - gsm_net
+
+networks:
+  gsm_net:
+    name: gsm_net

@@ -1,0 +1,14 @@
+session_name: imsi-catcher
+windows:
+  - window_name: analyse gsm
+    layout: tiled
+    shell_command_before:
+      - docker exec -it gr-gsm bash # run as a first command in all panes
+    panes:
+      - shell_command:
+          - grgsm_scanner
+      - shell_command:
+          - wireshark -k -Y '!icmp && gsmtap' -i lo
+      - shell_command:
+          - cd /catcher 
+          - python3 simple_IMSI-catcher.py -s --mysql
