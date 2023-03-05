@@ -5,7 +5,13 @@
 - usbipd installed in windows (cmd prompt)
     - installation details here. https://github.com/dorssel/usbipd-win
 - usbip client tools installed in WSL Distro (Ubuntu 18.04)
-
+- Software Defined Radio
+    - Nooelec NESDR SMArTee XTR SDR (Used for this project)
+    - Nice to have sdrs
+        - USRP B200, B210, B200mini, N200, N210, X300, X310 devices, with the WBX, SBX, CBX, UBX daughterboards.
+        - Lime Microsystems LimeNET Micro (https://wiki.myriadrf.org/LimeNET_Micro)
+        - Fairwaves UmTRX and UmSITE (https://umtrx.org/applications/driver/)
+    
 # In command prompt
 In windows install usbipd (for forwarding device to wsl)
     
@@ -66,7 +72,7 @@ Now run the multi panel terminal for analysing gsm near you
 ![gsm scanner](./docs/live.png)
 
 # Misc 
-    Install the x11 server to run GUI apps from bash
+Install the x11 server to run GUI apps from wsl or docker containers
 
     sudo apt install x11-xserver-utils xorg
     # allow from anywhere to connect (used for opening gui from within Container)
