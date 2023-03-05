@@ -4,11 +4,7 @@
 
 - usbipd installed in windows (cmd prompt)
     - installation details here. https://github.com/dorssel/usbipd-win
-
 - usbip client tools installed in WSL Distro (Ubuntu 18.04)
-    sudo apt install linux-tools-virtual hwdata
-    sudo update-alternatives --install /usr/local/bin/usbip usbip `ls /usr/lib/linux-tools/*/usbip | tail -n1` 20
-
 
 # In command prompt
 In windows install usbipd (for forwarding device to wsl)
@@ -20,11 +16,13 @@ In windows install usbipd (for forwarding device to wsl)
 
 # In windows wsl2 (Ubuntu)
 
-    # check the bus and device number by 
-    lsusb
+    sudo apt install linux-tools-virtual hwdata
+    sudo update-alternatives --install /usr/local/bin/usbip usbip `ls /usr/lib/linux-tools/*/usbip | tail -n1` 20
+    # check the bus and device number by
+     lsusb
     # Optional to check if device connected succesfully 
     dmesg | tail
-
+    
 # In a DB Client (DBeaver)
 
 connect to mysql db and create a table for gathering gsm traffic
